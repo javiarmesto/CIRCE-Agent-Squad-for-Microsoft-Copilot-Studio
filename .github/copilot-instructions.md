@@ -63,14 +63,30 @@ Skills contain correct templates, required fields, and schema validation.
 | New topic | `/copilot-studio:new-topic` |
 | Add/edit a node | `/copilot-studio:add-node` |
 | Add a connector action | `/copilot-studio:add-action` |
+| Edit an existing action | `/copilot-studio:edit-action` |
 | Configure an MCP action | `/copilot-studio:configure-mcp-action` |
 | Edit agent instructions | `/copilot-studio:edit-agent` |
+| Edit trigger phrases | `/copilot-studio:edit-triggers` |
 | Add an Adaptive Card | `/copilot-studio:add-adaptive-card` |
+| Add generative answers | `/copilot-studio:add-generative-answers` |
 | Add knowledge | `/copilot-studio:add-knowledge` |
+| Add a global variable | `/copilot-studio:add-global-variable` |
+| Add child/connected agents | `/copilot-studio:add-other-agents` |
 | Validate YAML | `/copilot-studio:validate` |
+| Look up schema definitions | `/copilot-studio:lookup-schema` |
+| List available kinds | `/copilot-studio:list-kinds` |
+| List all topics | `/copilot-studio:list-topics` |
 | Best practices (JIT, user context) | `/copilot-studio:best-practices` |
+| Search known issues | `/copilot-studio:known-issues` |
 | Scaffold new agent | `/copilot-studio:scaffold-agent` |
+| Clone agent from cloud | `/copilot-studio:clone-agent` |
+| Push/pull agent content | `/copilot-studio:manage-agent` |
+| Test agent with a message | `/copilot-studio:chat-with-agent` |
+| DirectLine testing | `/copilot-studio:directline-chat` |
+| Run batch test suites | `/copilot-studio:run-tests` |
 | Document decision | `/copilot-studio:add-decision-record` |
+| Pre-push review gate | `/copilot-studio:pre-push-review` |
+| Update project memory | `/copilot-studio:update-memory` |
 | Orchestrate multi-agent workflow | `/copilot-studio:copilot-studio-conductor` |
 | Coverage report | `/copilot-studio:coverage-report` |
 | Configure BC MCP connection | `/copilot-studio:bc-mcp-setup` |
