@@ -1,0 +1,25 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "ForEach-Object": true,
+        "/^node \\.github/scripts/schema-lookup\\.bundle\\.js validate agent\\.mcs\\.yml$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node \\.github/scripts/manage-agent\\.bundle\\.js pull --help$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node \\.github/scripts/manage-agent\\.bundle\\.js pull --workspace \"c:\\\\Users\\\\JavierArmestoGonzále\\\\Documents\\\\AL\\\\Circe\\\\Circe\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node \\.github/scripts/manage-agent\\.bundle\\.js pull --workspace \"c:\\\\Users\\\\JavierArmestoGonzále\\\\Documents\\\\AL\\\\Circe\\\\Circe\" --tenant-id \"26baeecb-ada4-4790-9515-732fb22ed267\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node \\.github/scripts/manage-agent\\.bundle\\.js pull --workspace \"c:\\\\Users\\\\JavierArmestoGonzále\\\\Documents\\\\AL\\\\Circe\\\\Circe\" --tenant-id \"26baeecb-ada4-4790-9515-732fb22ed267\" --environment-url \"https://vsscrm\\.crm4\\.dynamics\\.com/\" --environment-id \"8120ed43-94d5-ebf6-8d83-13bd36658b49\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

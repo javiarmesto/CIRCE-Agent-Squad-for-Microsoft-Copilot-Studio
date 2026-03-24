@@ -1,0 +1,33 @@
+mcs.metadata:
+  componentName: BC - Sales Orders
+  description: "Description: Query sales orders by customer, date range, or status from Business Central via MCP"
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: bcenvironment
+    value: SANDBOX_US
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: "CRONUS USA, Inc."
+
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: CIRCE
+
+modelDisplayName: BC Sales Orders
+modelDescription: >-
+  Retrieves sales orders from Business Central.
+  Use when the user asks about sales orders, order status, pending orders,
+  shipped orders, order history, or order details for a customer.
+  Can filter by customer name/number, order number, date range, or status
+  (open, released, pending approval, pending prepayment).
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: _REPLACE_CONNECTION_REFERENCE
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP

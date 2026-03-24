@@ -1,0 +1,32 @@
+mcs.metadata:
+  componentName: BC - Customer Balance
+  description: "Description: Query customer ledger entries and current balance from Business Central via MCP"
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: bcenvironment
+    value: SANDBOX_US
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: "CRONUS USA, Inc."
+
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: CIRCE
+
+modelDisplayName: BC Customer Balance
+modelDescription: >-
+  Retrieves customer balance information from Business Central.
+  Use when the user asks about a customer's current balance, outstanding amount,
+  total receivables, account status, or ledger entries.
+  Requires a customer name, number, or identifier to look up the balance.
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: _REPLACE_CONNECTION_REFERENCE
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP

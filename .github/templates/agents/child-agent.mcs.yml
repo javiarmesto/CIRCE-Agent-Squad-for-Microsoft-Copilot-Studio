@@ -1,0 +1,31 @@
+mcs.metadata:
+  componentName: "<Child Agent Display Name>    ← Required: display name shown in Copilot Studio"
+  description: "<Child Agent Name>                  ← Required: internal agent identifier (no spaces)"
+kind: AgentDialog
+beginDialog:
+  kind: OnToolSelected
+  id: main
+  description: <When should the parent orchestrator route to this child agent — be specific about the types of questions and tasks it handles, and include example user messages>
+
+settings:
+  instructions: |
+    You are a specialist assistant that handles <specialization area>.
+
+    Rules:
+    - Be concise and clear in your responses
+    - Only answer questions within your specialization
+    - If a question is outside your scope, politely say you only handle <specialization area>
+
+inputType:
+  properties:
+    AdditionalInput:
+      displayName: Additional Input
+      description: <Description of what context the parent agent passes to this child>
+      type: String
+
+outputType:
+  properties:
+    Result:
+      displayName: Result
+      description: <Description of what this child agent returns to the parent>
+      type: String

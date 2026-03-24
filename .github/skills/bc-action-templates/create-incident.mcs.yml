@@ -1,0 +1,34 @@
+mcs.metadata:
+  componentName: BC - Create Incident
+  description: "Description: Create a service incident or case for a customer in Business Central via MCP"
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: bcenvironment
+    value: SANDBOX_US
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: "CRONUS USA, Inc."
+
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: CIRCE
+
+modelDisplayName: BC Create Incident
+modelDescription: >-
+  Creates a service incident or case in Business Central for a customer.
+  Use when the user asks to open an incident, create a service case,
+  log a complaint, report a problem, or register a customer issue.
+  Requires customer identifier and incident description. Optionally includes
+  priority level, category, and related document references.
+  Always confirm incident details with the user before creating.
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: _REPLACE_CONNECTION_REFERENCE
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP

@@ -1,0 +1,32 @@
+mcs.metadata:
+  componentName: BC - Overdue Invoices
+  description: "Description: List overdue invoices with aging bucket classification from Business Central via MCP"
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: bcenvironment
+    value: SANDBOX_US
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: "CRONUS USA, Inc."
+
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: CIRCE
+
+modelDisplayName: BC Overdue Invoices
+modelDescription: >-
+  Retrieves overdue invoices from Business Central with aging classification.
+  Use when the user asks about unpaid invoices, past-due amounts, aging reports,
+  overdue balances, delinquent accounts, or invoices that need collection follow-up.
+  Can filter by customer name/number, date range, or aging bucket (current, 30, 60, 90+ days).
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: _REPLACE_CONNECTION_REFERENCE
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP

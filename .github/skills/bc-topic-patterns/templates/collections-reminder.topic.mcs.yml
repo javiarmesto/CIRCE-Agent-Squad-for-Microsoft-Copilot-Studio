@@ -1,0 +1,10 @@
+mcs.metadata:
+  componentName: Gestión de Cobros
+  description: |-
+    Template: Collections reminder with dispute check and aging-based branching
+    Pattern: bc-topic-patterns/collections-flow
+    NOTE: Replace all _REPLACE IDs with unique random IDs before use
+kind: AdaptiveDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: CustomerIdentifier

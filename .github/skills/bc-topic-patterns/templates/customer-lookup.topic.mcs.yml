@@ -1,0 +1,11 @@
+mcs.metadata:
+  componentName: Búsqueda de Cliente
+  description: |-
+    Template: Reusable sub-flow that resolves a customer by name or number
+    Pattern: bc-topic-patterns/customer-onboarding (sub-flow)
+    NOTE: Replace all _REPLACE IDs with unique random IDs before use
+    Usage: Call via BeginDialog from other topics that need customer identification
+kind: AdaptiveDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: SearchTerm

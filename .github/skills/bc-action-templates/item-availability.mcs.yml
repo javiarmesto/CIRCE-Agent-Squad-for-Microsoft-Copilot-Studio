@@ -1,0 +1,32 @@
+mcs.metadata:
+  componentName: BC - Item Availability
+  description: "Description: Check item stock levels and availability by location in Business Central via MCP"
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: bcenvironment
+    value: SANDBOX_US
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: "CRONUS USA, Inc."
+
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: CIRCE
+
+modelDisplayName: BC Item Availability
+modelDescription: >-
+  Checks item availability and stock levels in Business Central.
+  Use when the user asks about inventory, stock levels, item availability,
+  warehouse quantities, available-to-promise, or whether a specific item
+  is in stock. Can filter by item number/name, location code, or variant.
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: _REPLACE_CONNECTION_REFERENCE
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP

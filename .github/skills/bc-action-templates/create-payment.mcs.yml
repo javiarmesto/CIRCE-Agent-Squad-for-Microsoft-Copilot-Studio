@@ -1,0 +1,34 @@
+mcs.metadata:
+  componentName: BC - Create Payment
+  description: "Description: Register a payment journal entry for a customer in Business Central via MCP"
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: bcenvironment
+    value: SANDBOX_US
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: "CRONUS USA, Inc."
+
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: CIRCE
+
+modelDisplayName: BC Create Payment
+modelDescription: >-
+  Registers a payment in Business Central by creating a payment journal entry.
+  Use when the user asks to record a payment, register a customer payment,
+  apply a payment to an invoice, or log a received payment.
+  Requires customer identifier, payment amount, and optionally the invoice number
+  to apply the payment against. Always confirm payment details with the user
+  before executing.
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: _REPLACE_CONNECTION_REFERENCE
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP
