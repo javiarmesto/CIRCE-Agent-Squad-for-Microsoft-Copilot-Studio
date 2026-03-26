@@ -215,7 +215,7 @@ After successful validation, pull the agent files locally:
 
 After the user confirms the pull:
 - Read `connectionreferences.mcs.yml` to verify the BC connection reference exists
-- Read the BC action file to verify MCP configuration (environment, company, configurationName)
+- Read the BC action file to verify MCP structure (`InvokeExternalAgentTaskAction`, `operationId: InvokeMCP`) and environment config (`ManualTaskInput` entries for `bcenvironment`, `company`, `configurationName`)
 - Suggest updating `circe-memory.md` with the MCP config details using `/copilot-studio:update-memory`
 
 ## Troubleshooting
@@ -237,8 +237,8 @@ After the user confirms the pull:
 
 After the setup is complete:
 
-1. Offer to configure the MCP action YAML:
-   > ¿Quieres personalizar la configuración de la acción MCP? Puedo modificar el modelDescription, los inputs, o el modo de conexión con `/copilot-studio:configure-mcp-action`.
+1. Offer to configure the MCP action:
+   > ¿Quieres personalizar la configuración de la acción MCP? Puedo modificar el `modelDescription`, los inputs de entorno (`bcenvironment`, `company`, `configurationName`), o el modo de conexión con `/copilot-studio:configure-mcp-action`.
 
 2. Offer to update agent instructions:
    > ¿Quieres actualizar las instrucciones del agente para incluir guías sobre cómo usar las herramientas de BC? Puedo hacerlo con `/copilot-studio:edit-agent`.

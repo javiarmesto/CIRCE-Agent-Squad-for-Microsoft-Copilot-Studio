@@ -15,10 +15,16 @@ Interactively configure an existing MCP action (`kind: TaskDialog`, `action.kind
 mcs.metadata:
   componentName: <Display Name - Connector Display Name>
 kind: TaskDialog
-inputs:                          # Optional — ManualTaskInput entries
+inputs:
   - kind: ManualTaskInput
-    propertyName: <paramName>
-    value: <fixedValue>
+    propertyName: bcenvironment
+    value: <BC environment name>
+  - kind: ManualTaskInput
+    propertyName: configurationName
+    value: <MCP Server Configuration name>
+  - kind: ManualTaskInput
+    propertyName: company
+    value: <BC company name>
 modelDisplayName: <Name shown to AI orchestrator>
 modelDescription: <Description for AI routing>
 action:
@@ -28,8 +34,10 @@ action:
     mode: Invoker                # or Maker
   operationDetails:
     kind: ModelContextProtocolMetadata
-    operationId: <mcpOperationId>
+    operationId: InvokeMCP
 ```
+
+> **NOTE**: MCP actions use `ManualTaskInput` entries for environment configuration (`bcenvironment`, `company`, `configurationName`). These values can be set in the YAML directly or via the Copilot Studio UI → Tools → MCP action → **Inputs tab** (they sync on pull). MCP actions have **no `outputs`** and **no `AutomaticTaskInput`** — the MCP server handles parameters and responses dynamically.
 
 ### Key Differences from Connector Actions
 
@@ -38,8 +46,8 @@ action:
 | `action.kind` | `InvokeConnectorTaskAction` | `InvokeExternalAgentTaskAction` |
 | Operation ID | `action.operationId` (top-level) | `action.operationDetails.operationId` (nested) |
 | Operation metadata | — | `action.operationDetails.kind: ModelContextProtocolMetadata` |
-| Inputs | `AutomaticTaskInput` + `ManualTaskInput` | Typically `ManualTaskInput` only (environment config) |
-| Outputs | Explicit `outputs` list | Usually none (MCP returns responses dynamically) |
+| Inputs | `AutomaticTaskInput` + `ManualTaskInput` | `ManualTaskInput` only (bcenvironment, company, configurationName) — no `AutomaticTaskInput` |
+| Outputs | Explicit `outputs` list | **None** — MCP returns responses dynamically |
 
 ## Instructions
 
@@ -62,22 +70,24 @@ action:
 
 4. **Present current configuration and ask for changes interactively**. Show the user a summary of the current values and ask what they want to change. Structure the interaction by section:
 
-   ### Section 1: Environment Inputs (BC MCP only)
-   If the action has `ManualTaskInput` entries (e.g., BC MCP), present each one:
+   ### Section 1: Environment Inputs (BC MCP)
+   If the action has `ManualTaskInput` entries for BC environment config, present each one:
 
    > **Configuración actual de inputs:**
    >
    > | Input | Valor actual |
    > |-------|-------------|
-   > | `bcenvironment` | `SANDBOX_US` |
-   > | `company` | `CRONUS USA, Inc.` |
-   > | `configurationName` | `CIRCE` |
+   > | `bcenvironment` | `<current value>` |
+   > | `company` | `<current value>` |
+   > | `configurationName` | `<current value>` |
    >
    > ¿Quieres cambiar alguno de estos valores? Indica cuáles y sus nuevos valores, o escribe "OK" para mantenerlos.
 
    If the action has no inputs (e.g., Outlook MCP), skip this section.
 
-   **Typical `bcenvironment` values**: `SANDBOX_US`, `SANDBOX`, `PRODUCTION`, or any custom environment name from BC admin center.
+   **Typical `bcenvironment` values**: `SANDBOX`, `AGENTNEW`, `PRODUCTION`, or any custom environment name from BC admin center.
+
+   > **TIP**: These values can also be set via Copilot Studio UI → Tools → MCP action → **Inputs tab**. Changes sync on pull/push.
 
    ### Section 2: Display Name & Description
    Present the current orchestrator-facing metadata:
@@ -104,7 +114,7 @@ action:
    > ¿Cambiar? Indica `Invoker` o `Maker`, o "OK" para mantener.
 
    ### Section 4: Additional Inputs (optional)
-   Ask if the user wants to add new `ManualTaskInput` entries:
+   Ask if the user wants to add new `ManualTaskInput` entries beyond the standard three:
 
    > ¿Quieres añadir algún input manual adicional? Indica el `propertyName` y `value`, o "No" para continuar.
 
@@ -117,9 +127,9 @@ action:
    node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <action-file-path>
    ```
 
-8. **If environment values changed (BC MCP), check agent instructions for sync**. Read `agent.mcs.yml` and check if the instructions section references the old environment, company, or configuration. If so, ask the user:
+8. **If environment values changed, check agent instructions for sync**. Read `agent.mcs.yml` and check if the instructions section references the old environment, company, or configuration. If so, ask the user:
 
-   > Las instrucciones del agente en `agent.mcs.yml` referencian el entorno anterior (`SANDBOX_US`, `CRONUS USA, Inc.`, `CIRCE`). ¿Quieres que las actualice también para que coincidan con la nueva configuración?
+   > Las instrucciones del agente en `agent.mcs.yml` referencian valores de entorno. ¿Quieres que las actualice también para que coincidan con la nueva configuración?
 
    If yes, use `/copilot-studio:edit-agent` to update.
 
@@ -132,8 +142,8 @@ action:
 10. **Summarize changes** to the user:
 
     > **Cambios aplicados:**
-    > - `bcenvironment`: `SANDBOX_US` → `PRODUCTION`
-    > - `company`: `CRONUS USA, Inc.` → `Contoso Ltd.`
+    > - `bcenvironment`: `SANDBOX` → `AGENTNEW`
+    > - `modelDescription`: actualizado para mejor enrutamiento
     > - Validación: ✅ OK
     >
     > Recuerda hacer Push (extensión VS Code) y Publish (portal Copilot Studio).
@@ -143,9 +153,9 @@ action:
 - **Never change `action.operationDetails.operationId`** — this identifies which MCP operation runs. Changing it breaks the action.
 - **Never change `action.connectionReference`** — this links to the authenticated connection created via the portal. Changing it breaks the action.
 - **Never change `action.operationDetails.kind`** — must remain `ModelContextProtocolMetadata`.
-- **`ManualTaskInput` values are always strings** — even if the value looks numeric.
+- **MCP actions use `ManualTaskInput` for environment config only** — `bcenvironment`, `company`, `configurationName`. Do NOT add `AutomaticTaskInput` entries or `outputs`. These values can be edited in YAML or via Copilot Studio UI → Inputs tab (they sync on pull/push).
 - **Keep `mcs.metadata.componentName` in sync** — it should reflect the connector and action name. Format: `<Connector> - <Action Display Name>`.
-- **After changing environment values**, always check that the `agent.mcs.yml` instructions section references the same environment, company, and configuration. Mismatches cause confusing AI behavior.
+- **After changing environment values (in UI)**, always check that the `agent.mcs.yml` instructions section references the same environment, company, and configuration. Mismatches cause confusing AI behavior.
 - **Wait for user confirmation** before editing. Never apply changes preemptively.
 
 ## Workflow Summary

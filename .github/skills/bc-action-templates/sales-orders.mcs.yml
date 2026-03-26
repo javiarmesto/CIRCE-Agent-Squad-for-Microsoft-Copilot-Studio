@@ -5,17 +5,17 @@ kind: TaskDialog
 inputs:
   - kind: ManualTaskInput
     propertyName: bcenvironment
-    value: SANDBOX_US
-
-  - kind: ManualTaskInput
-    propertyName: company
-    value: "CRONUS USA, Inc."
+    value: _REPLACE_BC_ENVIRONMENT
 
   - kind: ManualTaskInput
     propertyName: configurationName
-    value: CIRCE
+    value: _REPLACE_MCP_CONFIG
 
-modelDisplayName: BC Sales Orders
+  - kind: ManualTaskInput
+    propertyName: company
+    value: _REPLACE_BC_COMPANY
+
+modelDisplayName: BC-Sales Orders
 modelDescription: >-
   Retrieves sales orders from Business Central.
   Use when the user asks about sales orders, order status, pending orders,

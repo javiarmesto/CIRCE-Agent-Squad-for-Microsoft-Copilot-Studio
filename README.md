@@ -21,7 +21,8 @@ This repository contains:
 
 1. **The CIRCE Framework** — 5 agents, 33+ skills, conventions, memory, and governance systems
 2. **The BC Extension Pack** — Domain skills for Business Central integration via MCP
-3. **Circe (the agent)** — A financial collections bot for Business Central, serving as both a real-world agent and the framework's reference implementation
+
+> A reference implementation (Medea — collections agent) is included in the `Medea/` directory with its own [README](./Medea/README.md).
 
 ---
 
@@ -175,7 +176,7 @@ The BC Extension Pack provides domain-specific skills for building Copilot Studi
 
 Three ready-to-implement blueprints define the full configuration for common BC scenarios:
 
-**Collections Agent** — Manages overdue payments with dispute-aware protection rules, aging-based escalation, and payment registration. Based on the Circe reference implementation.
+**Collections Agent** — Manages overdue payments with dispute-aware protection rules, aging-based escalation, and payment registration. See [Medea](./Medea/README.md) for a working example.
 
 **Sales Assistant** — Customer lookup, item availability, quote and order management with delivery date verification.
 
@@ -197,61 +198,10 @@ Supports both **Dynamic Tool Mode** (agent discovers tools at runtime) and **Exp
 
 ---
 
-## Reference Implementation: Circe — Collections Agent
-
-The `Circe/` directory contains a complete, working Copilot Studio bot that serves as both a production agent and the framework's reference implementation.
-
-### What Circe Does
-
-Circe manages collections and overdue payments for a Business Central environment. It integrates with BC (customer data, ledger entries, payment journals) and Outlook (email reminders, meeting scheduling) via MCP.
-
-### Architecture
-
-| Component | Count | Purpose |
-|-----------|-------|---------|
-| Topics | 5+ | Greeting, fallback, error handler, collections flow, conversation init |
-| Actions | 6+ | Customer balance, overdue invoices, payment registration, email, meetings |
-| Knowledge | As needed | Company policies, collection procedures |
-| Variables | 2+ | UserCountry (JIT), Glossary (JIT) |
-| Connections | 2 | Business Central MCP, Outlook MCP |
-
-### Protection Rules
-
-Circe enforces non-negotiable business rules in both instructions AND topic logic (double protection):
-
-- **No external communications** when an active dispute or material ledger inconsistency (>5% or >1.000€) exists
-- **Internal reconciliation report** generated instead when protection triggers
-- **Human confirmation required** before creating payments or posting journals
-- **Full traceability** — every action logged with timestamp, customer, and result
-
-### BC Configuration
-
-| Setting | Value |
-|---------|-------|
-| Environment | SANDBOX_US |
-| Company | CRONUS USA, Inc. |
-| MCP Config | CIRCE |
-| Schema | `copilots_header_cra1e_Circe` |
-| Language | Spanish |
-| Generative Actions | Enabled |
-
-### How to Use as Reference
-
-Circe demonstrates every CIRCE framework pattern in practice:
-
-- **Skill-first development** — Every component was created via skills, never manual YAML
-- **Generative orchestration** — `GenerativeActionsEnabled: true` with custom topics only where deterministic logic is required
-- **Protection rules** — Business rules enforced at both instruction and topic level
-- **JIT user context** — User profile loaded on first message via OnActivity
-- **MCP integration** — BC and Outlook connections via connection references
-- **Adaptive Cards** — Debt summary and payment confirmation cards
-
----
-
 ## Project Structure
 
 ```
-Circe/
+circe/
 ├── .github/
 │   ├── agents/                    # 5 specialized agents
 │   │   ├── copilot-studio-author.md
@@ -284,17 +234,18 @@ Circe/
 │   ├── README.md                 # Framework technical docs
 │   └── CHANGELOG.md
 │
-├── [agent-name]/                  # Circe agent (cloned from Copilot Studio)
-│   ├── agent.mcs.yml             # Agent metadata
-│   ├── settings.mcs.yml          # Settings, instructions, generative config
-│   ├── connectionreferences.mcs.yml  # BC + Outlook MCP connections
-│   ├── topics/                   # Conversation topics
-│   ├── actions/                  # MCP action definitions
-│   ├── knowledge/                # Knowledge sources
-│   ├── variables/                # Global variables
-│   ├── agents/                   # Child agents (if any)
-│   ├── decisions/                # Decision records (DR-001, DR-002...)
-│   └── circe-memory.md           # Cross-session project memory
+├── Medea/                         # Reference implementation — see Medea/README.md
+│
+├── [your-agent]/                  # Your agent (cloned from Copilot Studio)
+│   ├── agent.mcs.yml
+│   ├── settings.mcs.yml
+│   ├── connectionreferences.mcs.yml
+│   ├── topics/
+│   ├── actions/
+│   ├── knowledge/
+│   ├── variables/
+│   ├── decisions/
+│   └── circe-memory.md
 │
 ├── docs/
 │   ├── bc-extension-pack.md      # BC Pack documentation
@@ -366,7 +317,9 @@ Set up a collections agent connected to Business Central.
 Use the Collections Agent blueprint from the BC Extension Pack.
 ```
 
-The conductor orchestrates the full workflow: scaffold → MCP setup → instructions → actions → topics → review → push.
+The conductor orchestrates the full workflow: clone → MCP setup → instructions → actions → topics → review → push.
+
+> **Tip:** See [`Medea/README.md`](./Medea/README.md) for a complete working example of a collections agent built with CIRCE.
 
 ---
 
@@ -432,6 +385,7 @@ Additional references:
 |---------|-------------|
 | [ALDC](https://github.com/javiarmesto/AL-Development-Collection-for-GitHub-Copilot) | Skills-based development framework for Business Central AL with GitHub Copilot |
 | [Skills for Copilot Studio](https://github.com/microsoft/skills-for-copilot-studio) | Base plugin by Giorgio Ughini & Power CAT team |
+| Medea | Collections agent for Business Central — CIRCE reference implementation ([README](./Medea/README.md)) |
 | [TechSphere Dynamics](https://techspheredynamics.com) | Articles and content on BC, AI, and agentic development |
 
 ---

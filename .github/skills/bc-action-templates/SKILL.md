@@ -42,24 +42,19 @@ Do NOT use when:
    Read: ${CLAUDE_SKILL_DIR}/<template-name>.mcs.yml
    ```
 
-3. **Adapt environment values** — each template uses placeholders that must match the agent's BC configuration. Read the agent's existing BC MCP action to extract the correct values:
+3. **Adapt the `connectionReference`** — copy it from the existing cloud-pulled MCP action:
    ```
    Glob: **/actions/Dynamics365BusinessCentral*.mcs.yml
    ```
-   Copy these values from the existing action:
-   - `bcenvironment` — e.g., `SANDBOX_US`
-   - `company` — e.g., `CRONUS USA, Inc.`
-   - `configurationName` — e.g., `CIRCE`
-   - `connectionReference` — the full logical name from `connectionreferences.mcs.yml`
+   Copy the `connectionReference` value from that file. Replace `_REPLACE_CONNECTION_REFERENCE` in the template with this value.
 
-4. **Replace `_REPLACE` placeholders** in all IDs with fresh random alphanumeric values (6–8 chars).
-
-5. **Customize if needed**:
+4. **Customize if needed**:
    - Edit `modelDescription` to match the agent's specific domain language
-   - Add or remove `AutomaticTaskInput` entries based on the agent's needs
    - Adjust `description` fields to improve orchestrator routing accuracy
+   - Copy `ManualTaskInput` entries (`bcenvironment`, `company`, `configurationName`) from the cloud-pulled MCP action and add them to the template
+   - Do NOT add `AutomaticTaskInput` or `outputs` — MCP handles user parameters and responses dynamically
 
-6. **Write the action file** to the agent's `actions/` directory:
+5. **Write the action file** to the agent's `actions/` directory:
    ```
    <agent-dir>/actions/<FileName>.mcs.yml
    ```
@@ -78,7 +73,10 @@ Do NOT use when:
 ## Important Notes
 
 - **MCP actions use `InvokeExternalAgentTaskAction`** with `operationId: InvokeMCP`, NOT `InvokeConnectorTaskAction` — this is different from regular connector actions.
+- **MCP actions use `ManualTaskInput` for environment config** — three entries: `bcenvironment`, `company`, `configurationName`. Copy these from the cloud-pulled MCP action. They can also be set via Copilot Studio UI → Inputs tab (synced on pull/push).
+- **MCP actions have NO `AutomaticTaskInput` or `outputs`** — the MCP server handles user parameters and responses dynamically. Only define `inputs` (ManualTaskInput for env config), `modelDisplayName`, `modelDescription`, `action` block, and `connectionReference`.
 - **All templates use `mode: Invoker`** — each end user authenticates with their own BC credentials.
-- **`ManualTaskInput` values are environment-specific** — always verify against the agent's existing BC action.
+- **The `connectionReference` must match the cloud-pulled MCP action** — copy it from `Dynamics365BusinessCentral-*.mcs.yml`, not from `connectionreferences.mcs.yml`.
 - **Templates are starting points** — the MCP server exposes operations dynamically. The `modelDescription` is what the orchestrator uses to decide when to invoke the action.
 - **Do not change `operationId: InvokeMCP`** — this is the MCP protocol operation, not a BC-specific operation.
+- **In most cases you do NOT need separate action files** — the single cloud-pulled MCP action already gives the orchestrator access to all BC tools. Only create additional action files if you need different `modelDescription` values to improve routing for specific scenarios.

@@ -10,7 +10,7 @@
 | **BC Integration** | MCP Server (Dynamic Tool Mode OFF recommended) |
 | **Connectors** | Dynamics 365 Business Central MCP |
 | **Custom Topics** | 0–1 (order status with AdaptiveCard, optional) |
-| **MCP Actions** | 3–4 (sales orders, customer balance, item availability, overdue invoices) |
+| **MCP Actions** | 1 cloud-pulled (covers all BC tools; optionally 3–4 specialized templates for routing) |
 | **Instruction Blocks** | 1 (BC Data Context) + 2 (Data Formatting) + 3 (Protection) + 4 (Traceability) + 6 (Sales-Specific) |
 | **Language** | Spanish (1034) |
 
@@ -99,9 +99,15 @@ The sales instruction set includes blocks:
 
 ---
 
-## Phase 4 — Add MCP Actions
+## Phase 4 — MCP Action Configuration
 
-**Skill**: `/copilot-studio:bc-action-templates`
+**Skill**: `/copilot-studio:bc-action-templates` (optional — see note below)
+
+> **IMPORTANT — MCP Architecture**: In most cases, the single cloud-pulled MCP action (`Dynamics365BusinessCentral-Dynamics365BusinessCentralMCPPreview.mcs.yml`) already gives the orchestrator access to ALL BC tools. You do NOT need to create separate action files per operation. Only create additional action files if you need different `modelDescription` values to improve orchestrator routing.
+>
+> Environment config (`bcenvironment`, `company`, `configurationName`) is stored as `ManualTaskInput` entries in the action YAML. Copy these values from the cloud-pulled MCP action when creating additional action files. They can also be set via Copilot Studio UI → Tools → Inputs tab (synced on pull/push).
+
+If the orchestrator routes poorly with a single MCP action, consider adding specialized templates:
 
 ### Required Actions
 
@@ -183,7 +189,7 @@ Check for:
 - Schema validation passes for all files
 - Protection rules in instructions (even sales agents must check for blocked customers)
 - All `_REPLACE` placeholders replaced
-- Environment values consistent across actions
+- All environment values match across action files (`bcenvironment`, `company`, `configurationName` ManualTaskInput entries)
 - Spanish content in all user-facing text
 
 ---

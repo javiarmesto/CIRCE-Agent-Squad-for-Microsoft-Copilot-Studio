@@ -39,6 +39,10 @@ Before creating a topic, check this matrix. With `GenerativeActionsEnabled: true
 
 **Rule of thumb**: If the scenario needs an AdaptiveCard, deterministic business-rule enforcement, or multi-step conditional branching, create a custom topic. Otherwise, let the orchestrator handle it.
 
+**STOP CHECK**: If the decision matrix says "Orchestrator Only" for your scenario, do NOT create a topic. Instead, use `/copilot-studio:bc-instructions-patterns` to add routing guidance to the agent instructions, or `/copilot-studio:bc-action-templates` to add a specialized MCP action with a better `modelDescription`.
+
+**MCP action limitation**: MCP actions (`InvokeExternalAgentTaskAction` with `operationId: InvokeMCP`) can only be invoked by the generative orchestrator. They CANNOT be called via `BeginDialog` from within a topic. If your custom topic needs BC data, the orchestrator must provide it via topic inputs (AutomaticTaskInput), or you must use a regular connector action (`InvokeConnectorTaskAction` with `operationId: GetItemV3`) instead.
+
 ## Available Patterns
 
 | Pattern | File | When to Use |

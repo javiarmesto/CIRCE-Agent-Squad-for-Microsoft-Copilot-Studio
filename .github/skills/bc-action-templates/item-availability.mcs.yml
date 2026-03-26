@@ -5,15 +5,15 @@ kind: TaskDialog
 inputs:
   - kind: ManualTaskInput
     propertyName: bcenvironment
-    value: SANDBOX_US
-
-  - kind: ManualTaskInput
-    propertyName: company
-    value: "CRONUS USA, Inc."
+    value: _REPLACE_BC_ENVIRONMENT
 
   - kind: ManualTaskInput
     propertyName: configurationName
-    value: CIRCE
+    value: _REPLACE_MCP_CONFIG
+
+  - kind: ManualTaskInput
+    propertyName: company
+    value: _REPLACE_BC_COMPANY
 
 modelDisplayName: BC Item Availability
 modelDescription: >-
