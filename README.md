@@ -21,8 +21,7 @@ This repository contains:
 
 1. **The CIRCE Framework** — 5 agents, 33+ skills, conventions, memory, and governance systems
 2. **The BC Extension Pack** — Domain skills for Business Central integration via MCP
-
-> A reference implementation (Medea — collections agent) is included in the `Medea/` directory with its own [README](./Medea/README.md).
+3. **Medea** — A reference implementation (collections agent) with its own [README](./Medea/README.md)
 
 ---
 
@@ -44,19 +43,7 @@ This repository contains:
 │                        │                                     │
 │  ┌─────────────────────┴───────────────────────────────────┐  │
 │  │              33+ Modular Skills                         │  │
-│  │  ┌─────────────────────────────────────────────────┐    │  │
-│  │  │  Core: new-topic, add-node, add-action,         │    │  │
-│  │  │  validate, manage-agent, chat-with-agent...     │    │  │
-│  │  └─────────────────────────────────────────────────┘    │  │
-│  │  ┌─────────────────────────────────────────────────┐    │  │
-│  │  │  Governance: update-memory, add-decision-record,│    │  │
-│  │  │  pre-push-review, coverage-report, scaffold     │    │  │
-│  │  └─────────────────────────────────────────────────┘    │  │
-│  │  ┌─────────────────────────────────────────────────┐    │  │
-│  │  │  BC Pack: bc-mcp-setup, bc-instructions,        │    │  │
-│  │  │  bc-action-templates, bc-topic-patterns,        │    │  │
-│  │  │  bc-agent-blueprints                            │    │  │
-│  │  └─────────────────────────────────────────────────┘    │  │
+│  │  Core · Governance · BC Extension Pack                  │  │
 │  └─────────────────────────────────────────────────────────┘  │
 │                                                             │
 │  ┌─────────────────────────────────────────────────────────┐  │
@@ -81,6 +68,72 @@ This repository contains:
 
 ---
 
+## Quick Start: Order Tracker (your first CIRCE agent)
+
+Build a working Business Central agent in three phases. Total time: ~30 min.
+
+### Prerequisites
+
+| What | Why |
+|------|-----|
+| **VS Code** + [Copilot Studio Extension](https://marketplace.visualstudio.com/items?itemName=ms-CopilotStudio.vscode-copilotstudio) | Clone/push/pull agents |
+| **GitHub Copilot** (VS Code) or **Claude Code** | AI agent engine |
+| **Node.js 18+** | Bundled CLI scripts |
+| **Copilot Studio license** | With Copilot Credits |
+| **BC 27+** with MCP Server enabled + `MCP-ADMIN` permission set | For BC integration |
+
+### Step 0 — Install CIRCE
+
+```bash
+git clone https://github.com/javiarmesto/circe.git ~/circe
+cd ~/circe
+```
+
+### Step 1 — Create a blank agent in Copilot Studio
+
+Open [copilotstudio.microsoft.com](https://copilotstudio.microsoft.com), create a new agent with the name **"Order Tracker"** — nothing else. Just the name. This gives the agent an identity (schema name, agent ID, environment URL) that CIRCE needs.
+
+### Step 2 — Clone, configure & build (Phase 1 + 2)
+
+Open the CIRCE workspace in VS Code and use the AI chat:
+
+```
+@copilot-studio-manage Clone the "Order Tracker" agent from Copilot Studio.
+```
+
+Then load the requirements and build:
+
+```
+@copilot-studio-author
+
+Read the file order-tracker-requirements.md as context for this agent.
+
+Then:
+1. Set up the MCP connection to Business Central
+   (Environment: YOUR_BC_ENVIRONMENT, Company: CRONUS USA Inc., Explicit Tool Mode, read-only)
+2. Create action "Get Sales Order" (query by number or customer)
+3. Create topic "Check Order Status" with Adaptive Card
+   (triggers: order status, track order, where is my order)
+4. Ensure greeting, fallback and error handler topics exist
+```
+
+### Step 3 — Review, deploy & test (Phase 3)
+
+```
+@copilot-studio-conductor
+
+Run pre-push review, push to Copilot Studio, then test with:
+- "What's the status of order S-ORD101001?"
+- "Check orders for Adatum Corporation"
+- "Where is my order?"
+```
+
+After push, publish the draft in Copilot Studio UI, then the conductor runs the tests.
+
+> See [`docs/quickstart-order-tracker.md`](docs/quickstart-order-tracker.md) for the full walkthrough with expected results and validation checklists.
+
+---
+
 ## Key Features
 
 ### From the Base Plugin (Power CAT)
@@ -91,14 +144,14 @@ This repository contains:
 - Template-based topic and action generation
 
 ### CIRCE Adds
-- **Cross-session memory** — `circe-memory.md` tracks components, decisions, and project state across sessions
+- **Cross-session memory** — `circe-memory.md` tracks components, decisions, and project state
 - **Decision records** — Lightweight ADRs documenting why each component was built the way it was
 - **HITL gates** — Mandatory pre-push review with validation, diff summary, and explicit approval
 - **Skills evidencing** — Every operation declares which skills loaded, patterns applied, and validation results
 - **Always-on conventions** — Core rules injected via hooks, independent of agent preloads
-- **Agent scaffolding** — Generate a functional bot from scratch (greeting + fallback + error handler)
-- **Conductor agent** — Orchestrates multi-step workflows (create → validate → push → test) with gates between steps
-- **Coverage metrics** — Topic test coverage, trigger density, knowledge validation, model description completeness
+- **Agent scaffolding** — Generate a functional bot from scratch
+- **Conductor agent** — Orchestrates multi-step workflows with gates between steps
+- **Coverage metrics** — Topic test coverage, trigger density, knowledge validation
 - **BC Extension Pack** — Domain skills for Business Central MCP integration
 
 ---
@@ -115,86 +168,45 @@ This repository contains:
 
 ---
 
-## Skills
+## Development Workflow
 
-### Core Skills (from base plugin)
-
-| Skill | Purpose |
-|-------|---------|
-| `new-topic` | Create topic from template |
-| `add-node` | Add nodes to existing topics |
-| `add-action` | Guide through connector action setup |
-| `edit-action` | Modify action inputs, outputs, descriptions |
-| `add-adaptive-card` | Generate and insert Adaptive Cards |
-| `add-generative-answers` | SearchAndSummarizeContent patterns |
-| `add-knowledge` | Add knowledge sources (web, SharePoint, Graph) |
-| `add-global-variable` | Create conversation-scoped variables |
-| `add-other-agents` | Child agents and connected agents |
-| `edit-agent` | Modify agent settings and instructions |
-| `edit-triggers` | Modify trigger phrases and model descriptions |
-| `validate` | YAML validation against schema |
-| `lookup-schema` | Query schema definitions |
-| `list-kinds` | List valid kind values |
-| `list-topics` | Inventory all topics |
-| `manage-agent` | Push, pull, clone, diff |
-| `clone-agent` | Guided agent cloning |
-| `chat-with-agent` | Point-test utterances |
-| `directline-chat` | DirectLine v3 testing |
-| `run-tests` | Batch test suites and evaluation analysis |
-| `known-issues` | Search GitHub issues database |
-| `best-practices` | JIT glossary, user context, orchestrator patterns |
-| `int-project-context` | Shared project conventions |
-| `int-reference` | YAML reference tables |
-
-### CIRCE Governance Skills
-
-| Skill | Purpose |
-|-------|---------|
-| `update-memory` | Update circe-memory.md after operations |
-| `add-decision-record` | Create lightweight ADRs |
-| `pre-push-review` | Mandatory review gate before push |
-| `coverage-report` | Quality and coverage metrics |
-| `scaffold-agent` | Generate complete agent from scratch |
-
-### BC Extension Pack Skills
-
-| Skill | Purpose |
-|-------|---------|
-| `bc-mcp-setup` | Configure BC MCP Server and Copilot Studio connection |
-| `bc-instructions-patterns` | Composable instruction blocks for BC agents |
-| `bc-action-templates` | Pre-built TaskDialog templates for BC operations |
-| `bc-topic-patterns` | Topic patterns for collections, orders, incidents |
-| `bc-agent-blueprints` | Complete agent specifications (collections, sales, support) |
+```
+1. Create blank agent in Copilot Studio (just the name)
+        │
+        ▼
+2. Clone to local workspace
+        │
+        ▼
+3. Build with Author Agent (topics, actions, knowledge, instructions)
+        │
+        ▼
+4. Pre-push Review (HITL gate: validate → diff → approve)
+        │
+        ▼
+5. Push to Copilot Studio (draft)
+        │
+        ▼
+6. Publish in Copilot Studio UI
+        │
+        ▼
+7. Test with Test Agent
+```
 
 ---
 
 ## BC Extension Pack
 
-The BC Extension Pack provides domain-specific skills for building Copilot Studio agents that integrate with Dynamics 365 Business Central via the MCP Server.
+Domain skills for building agents connected to Dynamics 365 Business Central via MCP:
 
-### Agent Blueprints
+| Skill | Purpose |
+|-------|---------|
+| `bc-mcp-setup` | Configure BC MCP Server and connect to Copilot Studio |
+| `bc-instructions-patterns` | Composable instruction blocks for BC agents |
+| `bc-action-templates` | Pre-built TaskDialog YAML for common BC operations |
+| `bc-topic-patterns` | Topic patterns with orchestrator vs custom topic decision guidance |
+| `bc-agent-blueprints` | Complete agent specifications (collections, sales, support) |
 
-Three ready-to-implement blueprints define the full configuration for common BC scenarios:
-
-**Collections Agent** — Manages overdue payments with dispute-aware protection rules, aging-based escalation, and payment registration. See [Medea](./Medea/README.md) for a working example.
-
-**Sales Assistant** — Customer lookup, item availability, quote and order management with delivery date verification.
-
-**Customer Support** — Incident creation with Adaptive Cards, order tracking, and human escalation triggers.
-
-Each blueprint specifies: MCP tool configuration, instruction blocks, topics, actions, variables, protection rules, and estimated Copilot Credits consumption.
-
-### MCP Integration
-
-The `bc-mcp-setup` skill guides through the complete setup:
-
-1. Enable MCP Server in BC Feature Management (BC27+)
-2. Configure API page exposure with appropriate operations
-3. Connect in Copilot Studio (environment, company, auth mode)
-4. Validate with test queries
-5. Pull to local workspace
-
-Supports both **Dynamic Tool Mode** (agent discovers tools at runtime) and **Explicit Tool Mode** (agent maker selects tools at design time).
+Three ready-to-implement blueprints: **Collections Agent**, **Sales Assistant**, **Customer Support**. See [BC Extension Pack docs](docs/bc-extension-pack.md).
 
 ---
 
@@ -204,189 +216,32 @@ Supports both **Dynamic Tool Mode** (agent discovers tools at runtime) and **Exp
 circe/
 ├── .github/
 │   ├── agents/                    # 5 specialized agents
-│   │   ├── copilot-studio-author.md
-│   │   ├── copilot-studio-manage.md
-│   │   ├── copilot-studio-test.md
-│   │   ├── copilot-studio-troubleshoot.md
-│   │   └── copilot-studio-conductor.md
 │   ├── skills/                    # 33+ modular skills
-│   │   ├── [core skills]         # From base plugin
-│   │   ├── [governance skills]   # CIRCE additions
-│   │   └── [bc-* skills]         # BC Extension Pack
 │   ├── scripts/                   # 5 bundled CLI scripts
-│   │   ├── schema-lookup.bundle.js
-│   │   ├── manage-agent.bundle.js
-│   │   ├── chat-with-agent.bundle.js
-│   │   ├── directline-chat.bundle.js
-│   │   └── connector-lookup.bundle.js
 │   ├── templates/                 # Reusable YAML templates
-│   │   ├── topics/
-│   │   ├── actions/
-│   │   ├── agents/
-│   │   ├── knowledge/
-│   │   └── variables/
 │   ├── tests/                     # Test infrastructure
 │   ├── reference/                 # Schema reference
-│   ├── hooks/
-│   │   └── hooks.json            # SessionStart auto-delegation
-│   ├── circe-conventions.md      # Always-on rules (≤500 words)
-│   ├── copilot-instructions.md   # Master coordination
-│   ├── README.md                 # Framework technical docs
-│   └── CHANGELOG.md
+│   ├── hooks/hooks.json           # SessionStart auto-delegation
+│   ├── circe-conventions.md       # Always-on rules
+│   └── copilot-instructions.md    # Master coordination
 │
-├── Medea/                         # Reference implementation — see Medea/README.md
-│
-├── [your-agent]/                  # Your agent (cloned from Copilot Studio)
-│   ├── agent.mcs.yml
-│   ├── settings.mcs.yml
-│   ├── connectionreferences.mcs.yml
-│   ├── topics/
-│   ├── actions/
-│   ├── knowledge/
-│   ├── variables/
-│   ├── decisions/
-│   └── circe-memory.md
+├── Medea/                         # Reference implementation (collections agent)
 │
 ├── docs/
-│   ├── bc-extension-pack.md      # BC Pack documentation
-│   └── setup-guide.md            # End-to-end setup guide
+│   ├── quickstart-order-tracker.md
+│   ├── bc-extension-pack.md
+│   └── setup-guide.md
 │
-├── README.md                     # This file
+├── README.md                      # This file
 ├── LICENSE
 └── CONTRIBUTING.md
 ```
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-- **Node.js** 18+ (for CLI scripts)
-- **VS Code** with [Copilot Studio Extension](https://marketplace.visualstudio.com/items?itemName=ms-CopilotStudio.vscode-copilotstudio)
-- **GitHub Copilot** (VS Code or CLI) or **Claude Code**
-- **Copilot Studio license** with Copilot Credits
-
-For Business Central integration:
-- **BC 27+** (2025 Wave 2 or later) with MCP Server feature enabled
-- **MCP-ADMIN** permission set in BC
-
-### Quick Start
-
-**1. Clone this repository**
-
-```bash
-git clone https://github.com/javiarmesto/circe.git
-cd circe
-```
-
-**2. Install the base plugin**
-
-For GitHub Copilot CLI:
-```bash
-/plugin marketplace add microsoft/skills-for-copilot-studio
-```
-
-For Claude Code:
-```bash
-claude plugin install /path/to/skills-for-copilot-studio --scope project
-```
-
-**3. Clone your agent from Copilot Studio**
-
-```
-@copilot-studio-manage clone
-```
-
-Or use the Copilot Studio VS Code Extension directly.
-
-**4. Start building**
-
-```
-@copilot-studio-author Create a topic that checks customer balance
-```
-
-The framework handles the rest: skill loading, template selection, schema validation, and memory updates.
-
-### For Business Central Agents
-
-```
-@copilot-studio-conductor
-
-Set up a collections agent connected to Business Central.
-Use the Collections Agent blueprint from the BC Extension Pack.
-```
-
-The conductor orchestrates the full workflow: clone → MCP setup → instructions → actions → topics → review → push.
-
-> **Tip:** See [`Medea/README.md`](./Medea/README.md) for a complete working example of a collections agent built with CIRCE.
-
----
-
-## Development Workflow
-
-```
-Describe what you need
-        │
-        ▼
-┌───────────────────┐
-│  Conductor Agent   │  (or direct to specialist agent)
-└───────┬───────────┘
-        │
-        ▼
-┌───────────────────┐
-│   Author Agent     │  Creates/edits YAML via skills
-│   + Skills         │  Validates with schema-lookup
-│   + Templates      │  Generates decision record
-│   + Evidencing     │  Updates memory
-└───────┬───────────┘
-        │
-        ▼
-┌───────────────────┐
-│  Pre-Push Review   │  Validates all files
-│   (HITL Gate)      │  Shows diff + DRs
-│                    │  Requires explicit approval
-└───────┬───────────┘
-        │
-        ▼
-┌───────────────────┐
-│   Manage Agent     │  Push to Copilot Studio (draft)
-└───────┬───────────┘
-        │
-        ▼
-   User publishes
-   in Copilot Studio UI
-        │
-        ▼
-┌───────────────────┐
-│    Test Agent      │  Point-test, batch suite, or
-│                    │  evaluation analysis
-└───────────────────┘
-```
-
----
-
 ## Acknowledgements
 
-**CIRCE is built on top of [Skills for Copilot Studio](https://github.com/microsoft/skills-for-copilot-studio)**, the open-source plugin created by **Giorgio Ughini** and the **Microsoft Power CAT team**. They built the foundation that makes YAML-first agent development possible — the schema validation engine, the CLI scripts, the skill architecture, and the testing infrastructure. CIRCE extends their work; it does not replace it.
-
-Additional references:
-- [Microsoft Copilot Studio Documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/)
-- [Business Central MCP Server](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/ai/configure-mcp-server)
-- [BC Agent SDK](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/ai/ai-development-toolkit-overview)
-- [ALDC — AL Development Collection](https://github.com/javiarmesto/AL-Development-Collection-for-GitHub-Copilot) (sister framework for BC AL development)
-- [Power Fx Reference](https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-text)
-
----
-
-## Related Projects
-
-| Project | Description |
-|---------|-------------|
-| [ALDC](https://github.com/javiarmesto/AL-Development-Collection-for-GitHub-Copilot) | Skills-based development framework for Business Central AL with GitHub Copilot |
-| [Skills for Copilot Studio](https://github.com/microsoft/skills-for-copilot-studio) | Base plugin by Giorgio Ughini & Power CAT team |
-| Medea | Collections agent for Business Central — CIRCE reference implementation ([README](./Medea/README.md)) |
-| [TechSphere Dynamics](https://techspheredynamics.com) | Articles and content on BC, AI, and agentic development |
+**CIRCE is built on top of [Skills for Copilot Studio](https://github.com/microsoft/skills-for-copilot-studio)**, the open-source plugin created by **Giorgio Ughini** and the **Microsoft Power CAT team**. They built the foundation that makes YAML-first agent development possible. CIRCE extends their work; it does not replace it.
 
 ---
 
