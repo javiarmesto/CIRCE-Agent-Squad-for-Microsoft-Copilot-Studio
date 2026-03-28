@@ -16,17 +16,17 @@ Help the user find the right connector and operation before they go to the UI. U
 When the connector IS available, use the lookup tool to help the user before they go to the UI:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js list                              # List connectors
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operations <connector>            # List operations
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operation <connector> <opId>      # Full input/output details
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js search <keyword>                  # Search operations
+node .github/scripts/connector-lookup.bundle.js list                              # List connectors
+node .github/scripts/connector-lookup.bundle.js operations <connector>            # List operations
+node .github/scripts/connector-lookup.bundle.js operation <connector> <opId>      # Full input/output details
+node .github/scripts/connector-lookup.bundle.js search <keyword>                  # Search operations
 ```
 
 Use schema lookup for structural properties of TaskDialog and InvokeConnectorTaskAction:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js summary TaskDialog
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js summary InvokeConnectorTaskAction
+node .github/scripts/schema-lookup.bundle.js summary TaskDialog
+node .github/scripts/schema-lookup.bundle.js summary InvokeConnectorTaskAction
 ```
 
 ## Instructions
@@ -47,14 +47,14 @@ node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js summary InvokeCon
    - Read the action YAML to find `action.operationId` and the connector API name from `connectionreferences.mcs.yml`
    - Look up the full operation details (if the connector is available in the lookup script):
      ```bash
-     node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operation <connector> <operationId>
+     node .github/scripts/connector-lookup.bundle.js operation <connector> <operationId>
      ```
    - This gives you the complete list of available inputs and outputs for the operation
    - If the connector is not found, try broader terms. If still not found, inform the user and proceed with edits based on the existing action YAML and schema-lookup only
 
 4. **Read the generic action template** for structural reference:
    ```
-   Read: ${CLAUDE_SKILL_DIR}/../../templates/actions/connector-action.mcs.yml
+   Read: .github/templates/actions/connector-action.mcs.yml
    ```
    Use this alongside the connector-lookup output from step 3 to understand the YAML structure and available inputs/outputs.
 
@@ -114,7 +114,7 @@ node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js summary InvokeCon
 
 6. **Validate the edited file**:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <action-file-path>
+   node .github/scripts/schema-lookup.bundle.js validate <action-file-path>
    ```
 
 7. **Inform the user** about next steps:

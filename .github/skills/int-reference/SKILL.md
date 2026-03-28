@@ -197,7 +197,7 @@ These are **all** the Power Fx functions available in Copilot Studio. Do NOT use
 
 ## Available Templates
 
-Templates are bundled with the plugin. Skills that use templates reference them via `${CLAUDE_SKILL_DIR}/../../templates/`.
+Templates are bundled with the plugin. Skills that use templates reference them via `.github/templates/`.
 
 | Template | File | Pattern |
 |----------|------|---------|

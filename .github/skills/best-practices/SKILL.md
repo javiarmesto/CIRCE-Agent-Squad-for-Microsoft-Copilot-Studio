@@ -55,4 +55,4 @@ Provides the current date to the orchestrator through agent instructions using P
 
 ## Combining patterns
 
-You can also combine more than one best pratice. For example, when using both glossary and user context, merge them into a **single** `conversation-init` topic rather than creating separate OnActivity topics. Use the template at `${CLAUDE_SKILL_DIR}/../../templates/topics/conversation-init.topic.mcs.yml`. The individual files explain the details.
+You can also combine more than one best pratice. For example, when using both glossary and user context, merge them into a **single** `conversation-init` topic rather than creating separate OnActivity topics. Use the template at `.github/templates/topics/conversation-init.topic.mcs.yml`. The individual files explain the details.

@@ -17,7 +17,7 @@ Generate a new Copilot Studio topic YAML file based on user requirements.
    ```
    If multiple agents found, ask which one. NEVER hardcode an agent name.
 
-2. **Check for matching templates** in `${CLAUDE_SKILL_DIR}/../../templates/topics/` first:
+2. **Check for matching templates** in `.github/templates/topics/` first:
    - `greeting.topic.mcs.yml` — OnConversationStart greeting
    - `fallback.topic.mcs.yml` — OnUnknownIntent fallback with escalation
    - `arithmeticsum.topic.mcs.yml` — Topic with inputs/outputs and computation
@@ -30,10 +30,10 @@ Generate a new Copilot Studio topic YAML file based on user requirements.
 
 3. **MANDATORY: Verify ALL `kind:` values against the schema** before writing them:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js kinds                    # List all valid kind values
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve AdaptiveDialog   # Resolve trigger structure
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve <TriggerType>    # Resolve specific trigger
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js search <ActionKind>      # Verify an action kind exists
+   node .github/scripts/schema-lookup.bundle.js kinds                    # List all valid kind values
+   node .github/scripts/schema-lookup.bundle.js resolve AdaptiveDialog   # Resolve trigger structure
+   node .github/scripts/schema-lookup.bundle.js resolve <TriggerType>    # Resolve specific trigger
+   node .github/scripts/schema-lookup.bundle.js search <ActionKind>      # Verify an action kind exists
    ```
    **NEVER write a `kind:` value you haven't verified exists in the schema.** This is the #1 source of hallucination errors. If `schema-lookup.bundle.js search <kind>` returns no results, the kind does NOT exist — do not use it.
 
@@ -57,7 +57,7 @@ Generate a new Copilot Studio topic YAML file based on user requirements.
 
 8. **MANDATORY: Validate the generated file** after saving:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <saved-file.yml>
+   node .github/scripts/schema-lookup.bundle.js validate <saved-file.yml>
    ```
    If validation fails, fix the issues before reporting success to the user.
 

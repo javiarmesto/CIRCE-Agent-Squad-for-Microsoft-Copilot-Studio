@@ -57,7 +57,7 @@ Tell the user: **"A browser window may open for Microsoft sign-in (tokens are ca
 Run the list-envs command:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js list-envs \
+node .github/scripts/manage-agent.bundle.js list-envs \
   --tenant-id "<tenantId>"
 ```
 
@@ -83,7 +83,7 @@ First, ask the user: **"Do you want to list only agents you own, or all agents i
 - If **all agents** → add `--no-owner` flag
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js list-agents \
+node .github/scripts/manage-agent.bundle.js list-agents \
   --tenant-id "<tenantId>" \
   --environment-url "<environmentUrl>" \
   [--no-owner]
@@ -106,7 +106,7 @@ Ask the user to pick an agent. Extract the `agentId`.
 Run the clone command. The workspace should be the current directory (`.`). The `--agent-id` is required (from Phase 2):
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js clone \
+node .github/scripts/manage-agent.bundle.js clone \
   --workspace "." \
   --tenant-id "<tenantId>" \
   --agent-id "<agentId>" \

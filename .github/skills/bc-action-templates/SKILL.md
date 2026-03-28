@@ -39,7 +39,7 @@ Do NOT use when:
 
 2. **Read the template file**:
    ```
-   Read: ${CLAUDE_SKILL_DIR}/<template-name>.mcs.yml
+   Read: .github/skills/bc-action-templates/<template-name>.mcs.yml
    ```
 
 3. **Adapt the `connectionReference`** — copy it from the existing cloud-pulled MCP action:
@@ -62,7 +62,7 @@ Do NOT use when:
 
 7. **Validate**:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <action-file>
+   node .github/scripts/schema-lookup.bundle.js validate <action-file>
    ```
 
 8. **Inform the user** about next steps:

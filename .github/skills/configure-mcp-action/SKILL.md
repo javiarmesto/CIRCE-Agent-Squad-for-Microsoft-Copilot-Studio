@@ -124,7 +124,7 @@ action:
 
 7. **Validate the edited file**:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <action-file-path>
+   node .github/scripts/schema-lookup.bundle.js validate <action-file-path>
    ```
 
 8. **If environment values changed, check agent instructions for sync**. Read `agent.mcs.yml` and check if the instructions section references the old environment, company, or configuration. If so, ask the user:

@@ -48,11 +48,11 @@ There are 7 independent blocks. Each block can be included or excluded based on 
 
 2. **Read the matching pre-composed file**:
    ```
-   Read: ${CLAUDE_SKILL_DIR}/<agent-type>-agent-instructions.md
+   Read: .github/skills/bc-instructions-patterns/<agent-type>-agent-instructions.md
    ```
    For `general`, read:
    ```
-   Read: ${CLAUDE_SKILL_DIR}/general-bc-instructions.md
+   Read: .github/skills/bc-instructions-patterns/general-bc-instructions.md
    ```
 
 3. **Present the instructions to the user** for review:

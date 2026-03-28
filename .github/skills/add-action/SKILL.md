@@ -23,10 +23,10 @@ Help the user find the right connector and operation before they go to the UI. U
 When the connector IS available, use the lookup tool to help the user before they go to the UI:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js list
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operations <connector>
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operation <connector> <operationId>
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js search <keyword>
+node .github/scripts/connector-lookup.bundle.js list
+node .github/scripts/connector-lookup.bundle.js operations <connector>
+node .github/scripts/connector-lookup.bundle.js operation <connector> <operationId>
+node .github/scripts/connector-lookup.bundle.js search <keyword>
 ```
 
 `<connector>` matches by API name (`shared_office365`) or partial display name (`outlook`).
@@ -42,13 +42,13 @@ Use these to help the user understand:
 
 2. **Search for the operation** using connector-lookup:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js search "<user's description>"
+   node .github/scripts/connector-lookup.bundle.js search "<user's description>"
    ```
    If no match, try broader terms. If the connector is not available in the lookup script at all after different tries, inform the user that this connector is not in the local reference and they will need to add the action through the Copilot Studio UI.
 
 3. **Show the operation details** so the user knows exactly what to look for in the UI:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operation <connector> <operationId>
+   node .github/scripts/connector-lookup.bundle.js operation <connector> <operationId>
    ```
 
 4. **Walk the user through the UI steps**:
@@ -80,7 +80,7 @@ Use these to help the user understand:
 For the generic structural template of a connector action (TaskDialog), see:
 
 ```
-Read: ${CLAUDE_SKILL_DIR}/../../templates/actions/connector-action.mcs.yml
+Read: .github/templates/actions/connector-action.mcs.yml
 ```
 
 Use this alongside `connector-lookup operation` output to understand both the YAML structure and the full inputs/outputs for a specific operation.

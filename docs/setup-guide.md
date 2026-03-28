@@ -22,8 +22,8 @@ For Business Central integration, also:
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/javiarmesto/circe.git
-cd circe
+git clone https://github.com/javiarmesto/CIRCE---Agent-Architecture-Framework-for-Microsoft-Copilot-Studio.git
+cd CIRCE---Agent-Architecture-Framework-for-Microsoft-Copilot-Studio
 ```
 
 ---

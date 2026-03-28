@@ -33,8 +33,8 @@ If the user just wants the agent to answer questions from its knowledge, adding 
 
 3. **Look up the schema** for both nodes:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve CreateSearchQuery
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve SearchAndSummarizeContent
+   node .github/scripts/schema-lookup.bundle.js resolve CreateSearchQuery
+   node .github/scripts/schema-lookup.bundle.js resolve SearchAndSummarizeContent
    ```
 
 4. **Read `settings.mcs.yml`** to check if `GenerativeActionsEnabled: true`. This determines the best pattern:

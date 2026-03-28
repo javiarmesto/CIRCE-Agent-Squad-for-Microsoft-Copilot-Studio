@@ -65,7 +65,7 @@ Match the user's request to a blueprint:
 ### 2. Read the Blueprint
 
 ```
-Read: ${CLAUDE_SKILL_DIR}/blueprints/<blueprint-name>.md
+Read: .github/skills/bc-agent-blueprints/blueprints/<blueprint-name>.md
 ```
 
 ### 3. Present the Implementation Plan

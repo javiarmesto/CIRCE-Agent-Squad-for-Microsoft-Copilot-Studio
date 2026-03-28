@@ -30,21 +30,21 @@ Remember the token endpoint or secret for the entire conversation — you will n
 ### Token endpoint mode
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/directline-chat.bundle.js \
+node .github/scripts/directline-chat.bundle.js \
   --token-endpoint "<url>" "<utterance>"
 ```
 
 ### DirectLine secret mode
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/directline-chat.bundle.js \
+node .github/scripts/directline-chat.bundle.js \
   --directline-secret "<secret>" "<utterance>"
 ```
 
 With optional domain override:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/directline-chat.bundle.js \
+node .github/scripts/directline-chat.bundle.js \
   --directline-secret "<secret>" \
   --directline-domain "https://directline.botframework.com" \
   "<utterance>"
@@ -112,7 +112,7 @@ When `status` is `"signin_required"`, the bot requires the user to authenticate.
 3. **Send the validation code** — take `resume_command` from the JSON output, replace `<VALIDATION_CODE>` with the user's code, and run:
 
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/directline-chat.bundle.js <resume_command with code substituted>
+   node .github/scripts/directline-chat.bundle.js <resume_command with code substituted>
    ```
 
    Do NOT construct the command yourself. Use `resume_command` exactly as given — it already contains the correct `--conversation-id` and `--directline-token`.
@@ -120,7 +120,7 @@ When `status` is `"signin_required"`, the bot requires the user to authenticate.
 4. **Send the original utterance** — take `followup_command` from the JSON output and run:
 
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/directline-chat.bundle.js <followup_command>
+   node .github/scripts/directline-chat.bundle.js <followup_command>
    ```
 
    This sends the user's original message in the now-authenticated conversation.
@@ -145,7 +145,7 @@ Show a summary like:
 Pass `--conversation-id` and `--directline-token` from the previous response:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/directline-chat.bundle.js \
+node .github/scripts/directline-chat.bundle.js \
   --token-endpoint "<url>" "<follow-up>" \
   --conversation-id <id> --directline-token "<token>"
 ```

@@ -32,8 +32,8 @@ Create a new child agent (AgentDialog) that the parent agent's orchestrator can 
 
 2. **Look up the AgentDialog schema**:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve AgentDialog
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve OnToolSelected
+   node .github/scripts/schema-lookup.bundle.js resolve AgentDialog
+   node .github/scripts/schema-lookup.bundle.js resolve OnToolSelected
    ```
 
 3. **Determine from the user**:
@@ -48,7 +48,7 @@ Create a new child agent (AgentDialog) that the parent agent's orchestrator can 
    └── agent.mcs.yml
    ```
 
-5. **Generate `agent.mcs.yml`** using `${CLAUDE_SKILL_DIR}/../../templates/agents/child-agent.mcs.yml` as the starting template. Read the template, then customize all placeholder values (`<...>`) based on the user's requirements.
+5. **Generate `agent.mcs.yml`** using `.github/templates/agents/child-agent.mcs.yml` as the starting template. Read the template, then customize all placeholder values (`<...>`) based on the user's requirements.
 
    Key structure:
    - `kind: AgentDialog` — marks this as a child agent
