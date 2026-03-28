@@ -41,7 +41,7 @@ Add a knowledge source to the agent. Supports **Public Website**, **SharePoint**
 
 5. **Look up the knowledge source schema**:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve KnowledgeSourceConfiguration
+   node .github/scripts/schema-lookup.bundle.js resolve KnowledgeSourceConfiguration
    ```
 
 6. **Generate the knowledge source YAML**.
@@ -83,7 +83,7 @@ When the user wants to connect a **proprietary search API or database** not nati
 3. Transform API results into the required schema: `Content`, `ContentLocation`, `Title`
 4. Set `System.SearchResults` with the transformed results
 
-**Use the template:** `${CLAUDE_SKILL_DIR}/../../templates/topics/custom-knowledge-source.topic.mcs.yml`
+**Use the template:** `.github/templates/topics/custom-knowledge-source.topic.mcs.yml`
 
 **Prerequisites:** The user needs a connector action (in `actions/`) that calls their search API. If they don't have one yet, they should create it through the Copilot Studio UI or VS Code extension first.
 

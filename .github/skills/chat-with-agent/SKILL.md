@@ -33,13 +33,13 @@ The script auto-discovers agent connection details (environmentId, tenantId, age
 Run the bundled script with the utterance from `$ARGUMENTS` (or ask the user if not provided):
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/chat-with-agent.bundle.js --client-id <id> "<utterance>"
+node .github/scripts/chat-with-agent.bundle.js --client-id <id> "<utterance>"
 ```
 
 If the agent is not at the project root (or multiple agents exist), pass `--agent-dir`:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/chat-with-agent.bundle.js --client-id <id> "<utterance>" --agent-dir <path-to-agent>
+node .github/scripts/chat-with-agent.bundle.js --client-id <id> "<utterance>" --agent-dir <path-to-agent>
 ```
 
 The script outputs:
@@ -104,7 +104,7 @@ If the user needs the raw JSON for debugging, show it when asked.
 To test a multi-turn conversation, pass the `conversation_id` from the previous response:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/chat-with-agent.bundle.js --client-id <id> "<follow-up>" --conversation-id <id-from-previous>
+node .github/scripts/chat-with-agent.bundle.js --client-id <id> "<follow-up>" --conversation-id <id-from-previous>
 ```
 
 When the user asks to "continue the conversation" or "send a follow-up", reuse the `conversation_id` from the last successful response automatically without asking.

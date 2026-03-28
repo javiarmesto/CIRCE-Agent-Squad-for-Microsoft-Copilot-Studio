@@ -28,12 +28,12 @@ Add an `AdaptiveCardPrompt` node to an existing Copilot Studio topic. Use this f
 4. **Verify the schema** if needed:
    ```bash
    # Copilot Studio node schema
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js summary AdaptiveCardPrompt
+   node .github/scripts/schema-lookup.bundle.js summary AdaptiveCardPrompt
 
    # Adaptive Cards element schema (v1.6 — the version supported by Copilot Studio)
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js ac-summary TextBlock
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js ac-summary Input.Text
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js ac-search Action
+   node .github/scripts/schema-lookup.bundle.js ac-summary TextBlock
+   node .github/scripts/schema-lookup.bundle.js ac-summary Input.Text
+   node .github/scripts/schema-lookup.bundle.js ac-search Action
    ```
 
 5. **Select and adapt the template** from [card-templates.md](card-templates.md) matching the requested type.
@@ -44,7 +44,7 @@ Add an `AdaptiveCardPrompt` node to an existing Copilot Studio topic. Use this f
 
 8. **Validate** the updated topic file:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <topic-file.yml>
+   node .github/scripts/schema-lookup.bundle.js validate <topic-file.yml>
    ```
 
 9. **Inform the user** that they must push (VS Code Extension) and publish (Copilot Studio UI) before testing with `/chat-with-agent` or `/run-tests`.

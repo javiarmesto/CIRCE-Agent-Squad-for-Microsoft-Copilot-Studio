@@ -21,7 +21,6 @@ This repository contains:
 
 1. **The CIRCE Framework** — 5 agents, 33+ skills, conventions, memory, and governance systems
 2. **The BC Extension Pack** — Domain skills for Business Central integration via MCP
-3. **Medea** — A reference implementation (collections agent) with its own [README](./Medea/README.md)
 
 ---
 
@@ -68,11 +67,76 @@ This repository contains:
 
 ---
 
-## Quick Start: Order Tracker (your first CIRCE agent)
+## Quick Starts
+
+CIRCE provides two quickstart guides — choose based on your environment:
+
+| Quick Start | Time | BC Required | Validates |
+|-------------|------|-------------|-----------|
+| [**IT Support KB**](docs/quickstart-kb-agent.md) | ~20 min | No | Core framework, knowledge sources, generative answers, JIT best practices |
+| [**Order Tracker**](docs/quickstart-order-tracker.md) | ~30 min | Yes (27+ MCP) | Core framework + BC Extension Pack, MCP actions, Adaptive Cards |
+
+> **New to CIRCE?** Start with the **IT Support KB** — it requires fewer prerequisites and validates the core framework without Business Central.
+
+---
+
+### Quick Start: IT Support KB (no BC required)
+
+Build a knowledge-grounded IT support agent over SharePoint + web sources. Total time: ~20 min.
+
+#### Prerequisites
+
+| What | Why |
+|------|-----|
+| **VS Code** + [Copilot Studio Extension](https://marketplace.visualstudio.com/items?itemName=ms-CopilotStudio.vscode-copilotstudio) | Clone/push/pull agents |
+| **GitHub Copilot** (VS Code) or **Claude Code** | AI agent engine |
+| **Node.js 18+** | Bundled CLI scripts |
+| **Copilot Studio license** | With Copilot Credits |
+| **SharePoint site** with IT documentation | Knowledge source |
+
+#### Steps
+
+1. **Create a blank agent** in [Copilot Studio](https://copilotstudio.microsoft.com) named **"IT Support KB"**
+
+2. **Clone, add knowledge & configure:**
+   ```
+   @copilot-studio-manage Clone the "IT Support KB" agent from Copilot Studio.
+
+   @copilot-studio-author
+   Read the file docs/kb-agent-requirements.md as context for this agent.
+   Then:
+   1. Add knowledge sources (SharePoint + public FAQ URL)
+   2. Set Spanish agent instructions with date injection
+   3. Add conversation starters
+   ```
+
+3. **Build topics (JIT init + generative answers):**
+   ```
+   @copilot-studio-author
+   Using the IT Support KB requirements:
+   1. Create conversation-init topic (glossary + user context)
+   2. Create IT Knowledge Search topic with generative answers
+   3. Ensure greeting, fallback, error handler, and escalation topics exist
+   ```
+
+4. **Review, deploy & test:**
+   ```
+   @copilot-studio-conductor
+   Run pre-push review, push to Copilot Studio, then test with:
+   - "¿Cómo conecto a la VPN desde casa?"
+   - "¿Cuál es la política de contraseñas?"
+   - "Quiero hablar con una persona"
+   ```
+
+> See [`docs/quickstart-kb-agent.md`](docs/quickstart-kb-agent.md) for the full walkthrough with expected results and validation checklists.
+
+---
+
+### Quick Start: Order Tracker (requires BC)
 
 Build a working Business Central agent in three phases. Total time: ~30 min.
 
-### Prerequisites
+#### Prerequisites
 
 | What | Why |
 |------|-----|
@@ -82,18 +146,18 @@ Build a working Business Central agent in three phases. Total time: ~30 min.
 | **Copilot Studio license** | With Copilot Credits |
 | **BC 27+** with MCP Server enabled + `MCP-ADMIN` permission set | For BC integration |
 
-### Step 0 — Install CIRCE
+#### Step 0 — Install CIRCE
 
 ```bash
-git clone https://github.com/javiarmesto/circe.git ~/circe
-cd ~/circe
+git clone https://github.com/javiarmesto/CIRCE---Agent-Architecture-Framework-for-Microsoft-Copilot-Studio.git
+cd CIRCE---Agent-Architecture-Framework-for-Microsoft-Copilot-Studio
 ```
 
-### Step 1 — Create a blank agent in Copilot Studio
+#### Step 1 — Create a blank agent in Copilot Studio
 
 Open [copilotstudio.microsoft.com](https://copilotstudio.microsoft.com), create a new agent with the name **"Order Tracker"** — nothing else. Just the name. This gives the agent an identity (schema name, agent ID, environment URL) that CIRCE needs.
 
-### Step 2 — Clone, configure & build (Phase 1 + 2)
+#### Step 2 — Clone, configure & build (Phase 1 + 2)
 
 Open the CIRCE workspace in VS Code and use the AI chat:
 
@@ -106,7 +170,7 @@ Then load the requirements and build:
 ```
 @copilot-studio-author
 
-Read the file order-tracker-requirements.md as context for this agent.
+Read the file docs/order-tracker-requirements.md as context for this agent.
 
 Then:
 1. Set up the MCP connection to Business Central
@@ -117,7 +181,7 @@ Then:
 4. Ensure greeting, fallback and error handler topics exist
 ```
 
-### Step 3 — Review, deploy & test (Phase 3)
+#### Step 3 — Review, deploy & test (Phase 3)
 
 ```
 @copilot-studio-conductor
@@ -225,10 +289,11 @@ circe/
 │   ├── circe-conventions.md       # Always-on rules
 │   └── copilot-instructions.md    # Master coordination
 │
-├── Medea/                         # Reference implementation (collections agent)
-│
 ├── docs/
 │   ├── quickstart-order-tracker.md
+│   ├── quickstart-kb-agent.md
+│   ├── order-tracker-requirements.md
+│   ├── kb-agent-requirements.md
 │   ├── bc-extension-pack.md
 │   └── setup-guide.md
 │

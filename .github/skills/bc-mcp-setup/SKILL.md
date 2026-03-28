@@ -22,7 +22,7 @@ The BC MCP connection requires:
 For detailed field-by-field reference, Dynamic Tool Mode comparison, tool naming conventions, and security recommendations, see:
 
 ```
-Read: ${CLAUDE_SKILL_DIR}/mcp-config-guide.md
+Read: .github/skills/bc-mcp-setup/mcp-config-guide.md
 ```
 
 ## Instructions

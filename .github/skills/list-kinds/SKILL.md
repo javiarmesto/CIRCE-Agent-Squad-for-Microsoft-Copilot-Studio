@@ -13,7 +13,7 @@ List all available `kind` discriminator values from the schema, dynamically.
 
 1. Run the schema lookup script to get all kinds:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js kinds
+   node .github/scripts/schema-lookup.bundle.js kinds
    ```
 
 2. If `$ARGUMENTS` contains a filter keyword, filter the output to show only matching kinds.

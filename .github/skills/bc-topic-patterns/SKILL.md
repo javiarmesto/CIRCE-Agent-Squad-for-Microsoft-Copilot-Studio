@@ -69,12 +69,12 @@ Before creating a topic, check this matrix. With `GenerativeActionsEnabled: true
 
 3. **Read the matching pattern file**:
    ```
-   Read: ${CLAUDE_SKILL_DIR}/patterns/<pattern-name>.md
+   Read: .github/skills/bc-topic-patterns/patterns/<pattern-name>.md
    ```
 
 4. **If a template exists**, read it and adapt:
    ```
-   Read: ${CLAUDE_SKILL_DIR}/templates/<template-name>.topic.mcs.yml
+   Read: .github/skills/bc-topic-patterns/templates/<template-name>.topic.mcs.yml
    ```
    - Replace `_REPLACE` placeholders with fresh random IDs
    - Update environment values from the agent's existing BC MCP action
@@ -84,7 +84,7 @@ Before creating a topic, check this matrix. With `GenerativeActionsEnabled: true
 
 6. **Validate** the topic:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <topic-file>
+   node .github/scripts/schema-lookup.bundle.js validate <topic-file>
    ```
 
 7. **Inform the user** about next steps:

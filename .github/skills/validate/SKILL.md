@@ -15,7 +15,7 @@ Validate a Copilot Studio YAML file against the schema and best practices.
 
 2. **Run the automated validation script first**:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate $ARGUMENTS
+   node .github/scripts/schema-lookup.bundle.js validate $ARGUMENTS
    ```
    This checks: YAML parsing, kind detection, required properties, duplicate IDs, Power Fx `=` prefix, variable scope.
 
@@ -30,7 +30,7 @@ Validate a Copilot Studio YAML file against the schema and best practices.
 
 5. **Look up the schema** for context-aware validation:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve <kind>
+   node .github/scripts/schema-lookup.bundle.js resolve <kind>
    ```
 
 6. **Perform additional manual checks**:

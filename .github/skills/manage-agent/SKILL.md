@@ -49,7 +49,7 @@ The `auth` command acquires a generic `api.powerplatform.com` token using **devi
 Run with a **5-minute timeout**:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js auth \
+node .github/scripts/manage-agent.bundle.js auth \
   --tenant-id "<tenantId>" \
   --client-id "<clientId>" \
   --environment-url "<environmentUrl>"
@@ -102,7 +102,7 @@ All commands auto-detect the agent directory (finds the subfolder with `.mcs/con
 `--client-id` is optional. When omitted, uses VS Code's 1p client with interactive browser login.
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js pull \
+node .github/scripts/manage-agent.bundle.js pull \
   --workspace "<path-to-agent-folder>" \
   --tenant-id "<tenantId>" \
   --environment-id "<envId>" \
@@ -119,7 +119,7 @@ node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js pull \
 `--client-id` is optional. When omitted, uses VS Code's 1p client with interactive browser login.
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js push \
+node .github/scripts/manage-agent.bundle.js push \
   --workspace "<path-to-agent-folder>" \
   --tenant-id "<tenantId>" \
   --environment-id "<envId>" \
@@ -132,7 +132,7 @@ node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js push \
 Requires `--agent-id` (the bot GUID from `list-agents`). Uses Island API token automatically.
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js clone \
+node .github/scripts/manage-agent.bundle.js clone \
   --workspace "<target-folder>" \
   --tenant-id "<tenantId>" \
   --environment-id "<envId>" \
@@ -146,7 +146,7 @@ node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js clone \
 `--client-id` is optional. When omitted, uses VS Code's 1p client with interactive browser login.
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js changes \
+node .github/scripts/manage-agent.bundle.js changes \
   --workspace "<path-to-agent-folder>" \
   --tenant-id "<tenantId>" \
   --environment-id "<envId>" \
@@ -159,7 +159,7 @@ node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js changes \
 Uses Dataverse REST API directly (no LSP binary needed). `--client-id` is optional.
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js list-agents \
+node .github/scripts/manage-agent.bundle.js list-agents \
   --tenant-id "<tenantId>" \
   --environment-url "<envUrl>" \
   [--no-owner]
@@ -172,7 +172,7 @@ By default lists only agents owned by the current user. Add `--no-owner` to list
 Uses BAP REST API directly (no LSP binary needed). `--client-id` is optional.
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/manage-agent.bundle.js list-envs \
+node .github/scripts/manage-agent.bundle.js list-envs \
   --tenant-id "<tenantId>"
 ```
 

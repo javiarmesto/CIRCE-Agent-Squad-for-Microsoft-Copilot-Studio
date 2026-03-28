@@ -39,7 +39,7 @@ The user must have:
 
 2. **If the file doesn't exist**, create it from the template:
    ```bash
-   cp ${CLAUDE_SKILL_DIR}/../../tests/settings-example.json ./tests/settings.json
+   cp .github/tests/settings-example.json ./tests/settings.json
    ```
 
 3. **If values are missing**, ask the user for each missing value. Explain where to find each one:
@@ -73,7 +73,7 @@ The user must have:
 
 1. **Ensure `tests/package.json` exists** in the user's project. If not, copy it:
    ```bash
-   cp ${CLAUDE_SKILL_DIR}/../../tests/package.json ./tests/package.json
+   cp .github/tests/package.json ./tests/package.json
    ```
 
 2. **Install dependencies** if `tests/node_modules/` doesn't exist:
@@ -83,7 +83,7 @@ The user must have:
 
 3. **Run the test script in the background** with a 100-minute timeout (6000000ms):
    ```bash
-   node ${CLAUDE_SKILL_DIR}/../../tests/run-tests.js --config-dir ./tests
+   node .github/tests/run-tests.js --config-dir ./tests
    ```
    Use `run_in_background: true` for this command. Save the returned task ID.
 

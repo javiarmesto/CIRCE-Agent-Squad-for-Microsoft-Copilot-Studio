@@ -25,15 +25,15 @@ You are working inside a Copilot Studio agent project. All YAML files have the `
 
 ## Schema Lookup Script
 
-When you write new YAML files, be sure to use the schema lookup script to understand the schema, including mandatory fields, definitions, and references. The script is located at `${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js`, and you can use it in the terminal as follows:
+When you write new YAML files, be sure to use the schema lookup script to understand the schema, including mandatory fields, definitions, and references. The script is located at `.github/scripts/schema-lookup.bundle.js`, and you can use it in the terminal as follows:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js search trigger             # Search by keyword
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js lookup SendActivity        # Look up a definition
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js resolve AdaptiveDialog     # Resolve with $refs
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js kinds                      # List all valid kind values
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js summary Question           # Compact overview
-node ${CLAUDE_SKILL_DIR}/../../scripts/schema-lookup.bundle.js validate <file.yml>        # Validate a YAML file
+node .github/scripts/schema-lookup.bundle.js search trigger             # Search by keyword
+node .github/scripts/schema-lookup.bundle.js lookup SendActivity        # Look up a definition
+node .github/scripts/schema-lookup.bundle.js resolve AdaptiveDialog     # Resolve with $refs
+node .github/scripts/schema-lookup.bundle.js kinds                      # List all valid kind values
+node .github/scripts/schema-lookup.bundle.js summary Question           # Compact overview
+node .github/scripts/schema-lookup.bundle.js validate <file.yml>        # Validate a YAML file
 ```
 
 If you already know the specific definition you want to look up, use `lookup`. If you want to explore the schema around a certain topic, use `search` or `summary`.
@@ -43,13 +43,13 @@ Always check the schema before writing YAML to ensure you include all required f
 
 ## Connector Lookup Script
 
-The connector lookup script is at `${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js`. Use it for any questions about connectors, actions, their inputs, and outputs:
+The connector lookup script is at `.github/scripts/connector-lookup.bundle.js`. Use it for any questions about connectors, actions, their inputs, and outputs:
 
 ```bash
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js list                                 # List all connectors with operation counts
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operations <connector>               # List operations for a connector
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js operation <connector> <operationId>  # Full details of one operation (inputs/outputs)
-node ${CLAUDE_SKILL_DIR}/../../scripts/connector-lookup.bundle.js search <keyword>                     # Search operations across all connectors
+node .github/scripts/connector-lookup.bundle.js list                                 # List all connectors with operation counts
+node .github/scripts/connector-lookup.bundle.js operations <connector>               # List operations for a connector
+node .github/scripts/connector-lookup.bundle.js operation <connector> <operationId>  # Full details of one operation (inputs/outputs)
+node .github/scripts/connector-lookup.bundle.js search <keyword>                     # Search operations across all connectors
 ```
 
 `<connector>` matches by API name (`shared_office365`) or partial display name (`outlook`).
