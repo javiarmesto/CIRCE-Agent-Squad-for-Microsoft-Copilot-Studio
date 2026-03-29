@@ -19,7 +19,7 @@ The base plugin by the Power CAT team provides the foundation — YAML authoring
 
 This repository contains:
 
-1. **The CIRCE Framework** — 5 agents, 33+ skills, conventions, memory, and governance systems
+1. **The CIRCE Framework** — 5 agents, 34+ skills, conventions, memory, and governance systems
 2. **The BC Extension Pack** — Domain skills for Business Central integration via MCP
 
 ---
@@ -41,7 +41,7 @@ This repository contains:
 │  └─────────────────────┬───────────────────────────────────┘  │
 │                        │                                     │
 │  ┌─────────────────────┴───────────────────────────────────┐  │
-│  │              33+ Modular Skills                         │  │
+│  │              34+ Modular Skills                         │  │
 │  │  Core · Governance · BC Extension Pack                  │  │
 │  └─────────────────────────────────────────────────────────┘  │
 │                                                             │
@@ -264,8 +264,7 @@ Domain skills for building agents connected to Dynamics 365 Business Central via
 
 | Skill | Purpose |
 |-------|---------|
-| `bc-mcp-setup` | Configure BC MCP Server and connect to Copilot Studio |
-| `bc-instructions-patterns` | Composable instruction blocks for BC agents |
+| `bc-mcp-setup` | Configure BC MCP Server and connect to Copilot Studio || `bc-mcp-connector` | Read an ALDC manifest and guide the user through BC MCP connector setup (HITL) || `bc-instructions-patterns` | Composable instruction blocks for BC agents |
 | `bc-action-templates` | Pre-built TaskDialog YAML for common BC operations |
 | `bc-topic-patterns` | Topic patterns with orchestrator vs custom topic decision guidance |
 | `bc-agent-blueprints` | Complete agent specifications (collections, sales, support) |
@@ -296,6 +295,10 @@ circe/
 │   ├── kb-agent-requirements.md
 │   ├── bc-extension-pack.md
 │   └── setup-guide.md
+│
+├── skills/
+│   ├── bc-mcp-connector.skill.md  # ALDC↔CIRCE handoff skill
+│   └── samples/bc-mcp-connector/  # Sample manifest + outputs
 │
 ├── README.md                      # This file
 ├── LICENSE
