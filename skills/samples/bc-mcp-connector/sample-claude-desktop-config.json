@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "BC_LeadTracking": {
+      "command": "python",
+      "args": [
+        "-m", "bc_mcp_proxy",
+        "--TenantId", "<YOUR-TENANT-ID>",
+        "--ClientId", "<YOUR-CLIENT-ID>",
+        "--Environment", "Production",
+        "--Company", "CRONUS International Ltd.",
+        "--ConfigurationName", "SALES-AGENT-V1"
+      ]
+    }
+  }
+}
