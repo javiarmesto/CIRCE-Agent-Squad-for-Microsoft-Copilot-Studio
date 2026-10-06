@@ -1,5 +1,14 @@
 # CIRCE — Agent Architecture Framework for Microsoft Copilot Studio
 
+## Entrada para Business Central
+
+Para el recorrido BC empieza por [Order Tracker](docs/quickstart-order-tracker.md). Necesitas un entorno Copilot Studio, las herramientas de autoría indicadas en esa guía y tu conexión MCP a BC con permisos efectivos; usa un sandbox. El recorrido sin BC es [IT Support KB](docs/quickstart-kb-agent.md).
+
+El resultado esperado del recorrido BC es un agente que consulta pedidos mediante las acciones configuradas y presenta sus resultados. Verifica una lectura y conserva la evidencia antes de ampliar acciones. `.github/` contiene agentes y plantillas; `skills/` contiene contexto modular; `docs/` contiene requisitos y guías. No se entrega aquí un agente ya desplegado en tu tenant.
+
+Revisión estática del **6 de octubre de 2026**, sin publicar YAML, iniciar sesión en Copilot Studio ni invocar MCP. Se mantienen los créditos de Skills for Copilot Studio y Power CAT.
+
+
 > **Specialized agents, modular skills, and domain packs for building production-grade Copilot Studio bots — from code, not clicks.**
 >
 > Built on top of [Skills for Copilot Studio](https://github.com/microsoft/skills-for-copilot-studio) by **Giorgio Ughini** and the **Microsoft Power CAT team**.
